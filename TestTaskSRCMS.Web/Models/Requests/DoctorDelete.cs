@@ -2,5 +2,5 @@
 
 public class DoctorDelete
 {
-    public Guid Guid { get; set; }
+    public Guid Id { get; set; }
 }

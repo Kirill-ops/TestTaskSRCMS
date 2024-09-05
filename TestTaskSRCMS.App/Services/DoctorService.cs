@@ -20,7 +20,7 @@ public class DoctorService(StorageDoctor storage)
         return await _storage.GetAll();
     }
 
-    public async Task<IReadOnlyList<Doctor>> Create(string surname,
+    public async Task Create(string surname,
         string name,
         Office office,
         Specialization specialization,
@@ -40,11 +40,9 @@ public class DoctorService(StorageDoctor storage)
         };
 
         await _storage.Insert(newDoctor);
-
-        return await _storage.GetAll();
     }
 
-    public async Task<IReadOnlyList<Doctor>> Update(Doctor doctor, string surname,
+    public async Task Update(Doctor doctor, string surname,
         string name,
         Office office,
         Specialization specialization,
@@ -68,15 +66,12 @@ public class DoctorService(StorageDoctor storage)
         };
 
         await _storage.Update(updateDoctor);
-
-        return await _storage.GetAll();
     }
 
-    public async Task<IReadOnlyList<Doctor>> Delete(Doctor doctor)
+    public async Task Delete(Doctor doctor)
     {
         ArgumentNullException.ThrowIfNull(doctor);
         await _storage.Delete(doctor);
-        return await _storage.GetAll();
     }
 
 }
