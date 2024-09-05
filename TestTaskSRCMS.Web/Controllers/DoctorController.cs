@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TestTaskSRCMS.App.Services;
 using TestTaskSRCMS.Storage;
 using TestTaskSRCMS.Storage.Storages;
 using TestTaskSRCMS.Web.Models.Requests;
@@ -6,16 +7,15 @@ using TestTaskSRCMS.Web.Models.Requests;
 namespace TestTaskSRCMS.Web.Controllers;
 
 [Route("doctors")]
-public class DoctorController(StorageDoctor storage) : Controller
+public class DoctorController(DoctorService service) : Controller
 {
-    private readonly StorageDoctor _storage = storage;
+    private readonly DoctorService _service = service;
 
     [HttpPost("")]
     public async Task<string> Create([FromForm] DoctorPost request)
     {
-        var a = await _storage.Get();
-
-        return "OK " + a.Id.ToString();
+        await _service.Create(request.Surname, request.Name, );
+        throw new NotImplementedException();
     }
 
     [HttpPut("")]

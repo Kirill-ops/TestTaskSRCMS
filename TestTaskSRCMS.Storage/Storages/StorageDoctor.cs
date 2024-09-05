@@ -17,6 +17,14 @@ public class StorageDoctor(ContextDatabase context)
             return null;
     }
 
+    public async Task<IReadOnlyList<Doctor>> GetAll()
+    {
+        var doctors = await _context.Doctors.ToListAsync();
+        if (doctors is null)
+            return [];
+        return doctors.Select(x => x.GetModel()).ToList();
+    }
+
     public async Task Insert(Doctor doctor)
     {
         await _context.Doctors.AddAsync(new(doctor));
