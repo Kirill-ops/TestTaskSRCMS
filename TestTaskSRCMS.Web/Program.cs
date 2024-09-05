@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TestTaskSRCMS.App.Services;
 using TestTaskSRCMS.Storage;
 using TestTaskSRCMS.Storage.Storages;
 
@@ -20,6 +21,7 @@ public class Program
 
         builder.Services.AddScoped<StorageDoctor>();
         builder.Services.AddScoped<StoragePatient>();
+        builder.Services.AddScoped<DoctorService>();
 
         var app = builder.Build();
 

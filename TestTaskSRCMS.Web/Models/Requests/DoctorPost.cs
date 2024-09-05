@@ -2,33 +2,15 @@
 
 public class DoctorPost
 {
-    /// <summary>
-    /// Фамилия
-    /// </summary>
-    public string Surname { get; init; }
+    public string? Surname { get; set; }
 
-    /// <summary>
-    /// Имя
-    /// </summary>
-    public string Name { get; init; }
+    public string? Name { get; set; }
 
-    /// <summary>
-    /// Отчество
-    /// </summary>
-    public string? Patronymic { get; init; }
+    public string? Patronymic { get; set; }
 
-    /// <summary>
-    /// ID кабинета
-    /// </summary>
-    public Guid OfficeId { get; init; }
+    public Guid OfficeId { get; set; }
 
-    /// <summary>
-    /// ID специализации.
-    /// </summary>
-    public Guid SpecializationId { get; init; }
+    public Guid SpecializationId { get; set; }
 
-    /// <summary>
-    /// ID участка, если у врача нет участка, то Guid.Empty
-    /// </summary>
-    public Guid DistrictId { get; init; } = Guid.Empty;
+    public Guid DistrictId { get; set; }
 }

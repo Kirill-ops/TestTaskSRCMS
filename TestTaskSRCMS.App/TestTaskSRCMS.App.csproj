@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TestTaskSRCMS.Core\TestTaskSRCMS.Core.csproj" />
+    <ProjectReference Include="..\TestTaskSRCMS.Storage\TestTaskSRCMS.Storage.csproj" />
+  </ItemGroup>
+
 </Project>
