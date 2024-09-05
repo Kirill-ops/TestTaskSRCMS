@@ -1,18 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TestTaskSRCMS.Storage;
+using TestTaskSRCMS.Storage.Storages;
 using TestTaskSRCMS.Web.Models.Requests;
 
 namespace TestTaskSRCMS.Web.Controllers;
 
 [Route("doctors")]
-public class DoctorController(ContextDatabase contextDatebase) : Controller
+public class DoctorController(StorageDoctor storage) : Controller
 {
-    private ContextDatabase _contextDatebase = contextDatebase;
+    private readonly StorageDoctor _storage = storage;
 
     [HttpPost("")]
     public async Task<string> Create([FromForm] DoctorPost request)
     {
-        return "OK";
+        var a = await _storage.Get();
+
+        return "OK " + a.Id.ToString();
     }
 
     [HttpPut("")]

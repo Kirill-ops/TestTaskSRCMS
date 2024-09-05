@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TestTaskSRCMS.Core.Models;
+using TestTaskSRCMS.Storage.Entities;
 
 namespace TestTaskSRCMS.Storage;
 
 public class ContextDatabase : DbContext
 {
-    public DbSet<Doctor> Doctors { get; set; }
-    public DbSet<Patient> Patients { get; set; }
-    public DbSet<Specialization> Specializations { get; set; }
-    public DbSet<District> Districts { get; set; }
-    public DbSet<Office> Office { get; set; }
+    public DbSet<EntityDoctor> Doctors { get; set; }
+    public DbSet<EntityPatient> Patients { get; set; }
+    public DbSet<EntitySpecialization> Specializations { get; set; }
+    public DbSet<EntityDistrict> Districts { get; set; }
+    public DbSet<EntityOffice> Offices { get; set; }
 
     public ContextDatabase(DbContextOptions<ContextDatabase> options)
        : base(options)
@@ -17,10 +18,9 @@ public class ContextDatabase : DbContext
         Database.EnsureCreated();
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        //Administrator admin = new Administrator { Id = 1};
-        //modelBuilder.Entity<Administrator>().HasData(new Administrator[] { admin });
-        //base.OnModelCreating(modelBuilder);
-    }
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //    modelBuilder.Entity<EntityDistrict>().HasData([new(Guid.NewGuid(), 0)]);
+    //    base.OnModelCreating(modelBuilder);
+    //}
 }
