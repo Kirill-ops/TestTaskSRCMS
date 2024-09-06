@@ -45,7 +45,8 @@ public class StorageDistrict(ContextDatabase context)
     {
         var updateDistrict = await _context.Districts.FirstOrDefaultAsync(x => x.Id == district.Id) ?? throw new Exception("");
 
-        updateDistrict = new(district);
+        updateDistrict.Number = district.Number;
+
         _context.SaveChanges();
     }
 

@@ -45,7 +45,8 @@ public class StorageSpecialization(ContextDatabase context)
     {
         var updateSpecialization = await _context.Specializations.FirstOrDefaultAsync(x => x.Id == specialization.Id) ?? throw new Exception("");
 
-        updateSpecialization = new(specialization);
+        updateSpecialization.Name = specialization.Name;
+
         _context.SaveChanges();
     }
 

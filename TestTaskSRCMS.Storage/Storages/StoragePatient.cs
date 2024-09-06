@@ -35,7 +35,14 @@ public class StoragePatient(ContextDatabase context)
     {
         var updateDoctor = await _context.Patients.FirstOrDefaultAsync(x => x.Id == patient.Id) ?? throw new Exception("");
 
-        updateDoctor = new(patient);
+        updateDoctor.Name = patient.Name;
+        updateDoctor.Surname = patient.Surname;
+        updateDoctor.Patronymic = patient.Patronymic;
+        updateDoctor.Address = patient.Address;
+        updateDoctor.DateBirth = patient.DateBirth;
+        updateDoctor.DistrictId = patient.DistrictId;
+        updateDoctor.Gender = patient.Gender;
+
         _context.SaveChanges();
     }
 

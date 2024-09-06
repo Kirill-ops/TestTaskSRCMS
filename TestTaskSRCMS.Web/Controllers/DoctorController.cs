@@ -24,7 +24,6 @@ public class DoctorController(DoctorService doctorService, SpecializationService
         var district = await _districtService.GetById(request.DistrictId) ?? throw new Exception("Not found district"); ;
         var specialization = await _specializationService.GetById(request.SpecializationId) ?? throw new Exception("Not found specialization"); ;
 
-
         await _doctorService.Create(
             request.Surname.Trim(),
             request.Name.Trim(),

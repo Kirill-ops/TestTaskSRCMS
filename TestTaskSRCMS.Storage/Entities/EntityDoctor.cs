@@ -13,17 +13,17 @@ public class EntityDoctor: IEntity<Doctor>
 
     public Guid Id { get; set; }
 
-    public string Surname { get; init; }
+    public string Surname { get; set; }
 
-    public string Name { get; init; }
+    public string Name { get; set; }
 
-    public string? Patronymic { get; init; }
+    public string? Patronymic { get; set; }
 
-    public Guid OfficeId { get; init; }
+    public Guid OfficeId { get; set; }
 
-    public Guid SpecializationId { get; init; }
+    public Guid SpecializationId { get; set; }
 
-    public Guid DistrictId { get; init; } = Guid.Empty;
+    public Guid DistrictId { get; set; } = Guid.Empty;
 
     public EntityDoctor(
         Guid id,

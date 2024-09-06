@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TestTaskSRCMS.App.Services;
+using TestTaskSRCMS.App.Startup;
 using TestTaskSRCMS.Storage;
 using TestTaskSRCMS.Storage.Storages;
 
@@ -29,8 +30,25 @@ public class Program
         //
         builder.Services.AddScoped<DoctorService>();
         builder.Services.AddScoped<DistrictService>();
+        builder.Services.AddScoped<SpecializationService>();
+        builder.Services.AddScoped<OfficeService>();
+        builder.Services.AddScoped<DistrictService>();
+
+        // Задачи, которые нужно выполнить при старте программы.
+        builder.Services.AddScoped<IStartupTask, TaskStorageInitalization>();
 
         var app = builder.Build();
+
+        //app.Services.GetServices<IStartupTask>().ToList().ForEach(async x => await x.Execute());
+        // Создаем скоуп
+        using (var scope = app.Services.CreateScope())
+        {
+            var startupTasks = scope.ServiceProvider.GetServices<IStartupTask>();
+            foreach (var task in startupTasks)
+            {
+                task.Execute().Wait();
+            }
+        }
 
         app.MapControllers();
 

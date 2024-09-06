@@ -45,7 +45,8 @@ public class StorageOffice(ContextDatabase context)
     {
         var updateOffice = await _context.Offices.FirstOrDefaultAsync(x => x.Id == office.Id) ?? throw new Exception("");
 
-        updateOffice = new(office);
+        updateOffice.Number = office.Number;
+
         _context.SaveChanges();
     }
 
