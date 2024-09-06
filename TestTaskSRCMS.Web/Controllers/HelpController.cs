@@ -41,10 +41,8 @@ public class HelpController(DoctorService doctorService, SpecializationService s
 
         var pathDirectory = "Files";
 
-        if (Directory.Exists(pathDirectory))
-            Directory.Delete(pathDirectory, true);
-
-        Directory.CreateDirectory(pathDirectory);
+        if (!Directory.Exists(pathDirectory))
+            Directory.CreateDirectory(pathDirectory);
 
         var content = "{\r\n  " +
             "\"surname\": \"Иванов\",\r\n  " +
