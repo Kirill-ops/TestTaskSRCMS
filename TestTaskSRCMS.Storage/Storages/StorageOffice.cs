@@ -17,6 +17,16 @@ public class StorageOffice(ContextDatabase context)
             return null;
     }
 
+    public async Task<Office?> GetByNumber(int number)
+    {
+        var entity = await _context.Offices.FirstOrDefaultAsync(x => x.Number == number);
+
+        if (entity is not null)
+            return entity.GetModel();
+        else
+            return null;
+    }
+
     public async Task<IReadOnlyList<Office>> GetAll()
     {
         var entities = await _context.Offices.ToListAsync();

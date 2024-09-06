@@ -17,6 +17,16 @@ public class StorageSpecialization(ContextDatabase context)
             return null;
     }
 
+    public async Task<Specialization?> GetByName(string name)
+    {
+        var entity = await _context.Specializations.FirstOrDefaultAsync(x => x.Name == name);
+
+        if (entity is not null)
+            return entity.GetModel();
+        else
+            return null;
+    }
+
     public async Task<IReadOnlyList<Specialization>> GetAll()
     {
         var entities = await _context.Specializations.ToListAsync();

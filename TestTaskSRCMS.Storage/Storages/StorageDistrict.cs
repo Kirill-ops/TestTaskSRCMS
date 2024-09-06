@@ -17,6 +17,16 @@ public class StorageDistrict(ContextDatabase context)
             return null;
     }
 
+    public async Task<District?> GetByNumber(int number)
+    {
+        var entity = await _context.Districts.FirstOrDefaultAsync(x => x.Number == number);
+
+        if (entity is not null)
+            return entity.GetModel();
+        else
+            return null;
+    }
+
     public async Task<IReadOnlyList<District>> GetAll()
     {
         var entities = await _context.Districts.ToListAsync();

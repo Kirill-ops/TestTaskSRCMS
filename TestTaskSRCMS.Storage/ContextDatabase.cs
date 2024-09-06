@@ -17,10 +17,4 @@ public class ContextDatabase : DbContext
     {
         Database.EnsureCreated();
     }
-
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    modelBuilder.Entity<EntityDistrict>().HasData([new(Guid.NewGuid(), 0)]);
-    //    base.OnModelCreating(modelBuilder);
-    //}
 }
