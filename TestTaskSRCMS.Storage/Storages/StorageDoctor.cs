@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using TestTaskSRCMS.Core.Models;
+using TestTaskSRCMS.Storage.Entities;
 
 namespace TestTaskSRCMS.Storage.Storages;
 
@@ -20,19 +22,25 @@ public class StorageDoctor(ContextDatabase context)
     public async Task<IReadOnlyList<Doctor>> GetAll()
     {
         var doctors = await _context.Doctors.ToListAsync();
+
         if (doctors is null)
             return [];
+
         return doctors.Select(x => x.GetModel()).ToList();
     }
 
     public async Task Insert(Doctor doctor)
     {
+        ArgumentNullException.ThrowIfNull(doctor);
+
         await _context.Doctors.AddAsync(new(doctor));
         _context.SaveChanges();
     }
 
     public async Task Update(Doctor doctor)
     {
+        ArgumentNullException.ThrowIfNull(doctor);
+
         var updateDoctor = await _context.Doctors.FirstOrDefaultAsync(x => x.Id == doctor.Id) ?? throw new Exception("");
 
         updateDoctor.Surname = doctor.Surname;
@@ -47,6 +55,8 @@ public class StorageDoctor(ContextDatabase context)
 
     public async Task Delete(Doctor doctor)
     {
+        ArgumentNullException.ThrowIfNull(doctor);
+
         var removeDoctor = await _context.Doctors.FirstOrDefaultAsync(x => x.Id == doctor.Id) ?? throw new Exception("");
 
         _context.Doctors.Remove(removeDoctor);

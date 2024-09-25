@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TestTaskSRCMS.App.Services;
 using TestTaskSRCMS.Core.Models;
+using TestTaskSRCMS.Web.Extensions;
 using TestTaskSRCMS.Web.Models;
 using TestTaskSRCMS.Web.Models.Requests;
 
@@ -47,8 +48,8 @@ public class DoctorController(DoctorService doctorService, SpecializationService
         var specialization = await _specializationService.GetById(request.SpecializationId) ?? throw new Exception("Not found specialization"); ;
 
         await _doctorService.Update(
-            doctor, 
-            request.Surname.Trim(), 
+            doctor,
+            request.Surname.Trim(),
             request.Name.Trim(),
             office,
             specialization,
@@ -78,22 +79,28 @@ public class DoctorController(DoctorService doctorService, SpecializationService
     }
 
     [HttpGet("")]
-    public async Task<IReadOnlyList<ResponseDoctorFull>> GetAll()
+    public async Task<IReadOnlyList<ResponseDoctorFull>> GetAll(
+        [FromQuery] DoctorsSortingField field = DoctorsSortingField.NoField,
+        [FromQuery] int limit = 0)
     {
-        var response = new List<ResponseDoctorFull>();
+        ArgumentOutOfRangeException.ThrowIfNegative(limit);
 
         var doctors = await _doctorService.GetAll();
 
+        var response = new List<ResponseDoctorFull>();
         foreach (var doctor in doctors)
         {
             var office = await _officeService.GetById(doctor.OfficeId) ?? throw new Exception("Not found office");
-            var district = await _districtService.GetById(doctor.DistrictId) ?? throw new Exception("Not found district"); ;
-            var specialization = await _specializationService.GetById(doctor.SpecializationId) ?? throw new Exception("Not found specialization"); ;
+            var district = await _districtService.GetById(doctor.DistrictId) ?? throw new Exception("Not found district");
+            var specialization = await _specializationService.GetById(doctor.SpecializationId);
 
             response.Add(new(doctor, office, specialization, district));
         }
 
-        return response;
+        if (field != DoctorsSortingField.NoField || limit != 0)
+            return response.SortDoctors(field, limit == 0 ? response.Count : limit);
+        else
+            return response;
     }
 
 }
