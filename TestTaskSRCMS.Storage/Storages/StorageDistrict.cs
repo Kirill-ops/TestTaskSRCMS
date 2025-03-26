@@ -38,7 +38,7 @@ public class StorageDistrict(ContextDatabase context)
     public async Task Insert(District district)
     {
         await _context.Districts.AddAsync(new(district));
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
     public async Task Update(District district)
@@ -47,7 +47,7 @@ public class StorageDistrict(ContextDatabase context)
 
         updateDistrict.Number = district.Number;
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
     public async Task Delete(District district)
@@ -55,7 +55,7 @@ public class StorageDistrict(ContextDatabase context)
         var removeDoctor = await _context.Districts.FirstOrDefaultAsync(x => x.Id == district.Id) ?? throw new Exception("");
 
         _context.Districts.Remove(removeDoctor);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
 }
