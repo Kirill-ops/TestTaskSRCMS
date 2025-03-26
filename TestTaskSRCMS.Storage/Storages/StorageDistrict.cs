@@ -32,7 +32,7 @@ public class StorageDistrict(ContextDatabase context)
         var entities = await _context.Districts.ToListAsync();
         if (entities is null)
             return [];
-        return entities.Select(x => x.GetModel()).ToList();
+        return entities.Select(x => x.GetModel()).ToList(); 
     }
 
     public async Task Insert(District district)
